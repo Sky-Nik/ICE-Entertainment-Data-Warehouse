@@ -1,0 +1,55 @@
+# ── Operating System ────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ── IDE & Editor ────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ── Pentaho / PDI ───────────────────────────────────────────
+*.log
+*.tmp
+/logs/
+pentaho-solutions/system/
+simple-jndi/
+
+# ── MySQL ───────────────────────────────────────────────────
+*.ibd
+*.frm
+*.MYD
+*.MYI
+*.MYI
+/mysql-data/
+
+# ── Large generated SQL data dumps ──────────────────────────
+/sql/data_inserts/
+*_dump.sql
+
+# ── Credentials / Config (never commit these) ───────────────
+*.env
+.env
+config.properties
+database.properties
+*password*
+*credentials*
+
+# ── Python (if used for data processing) ────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# ── Compiled / Generated ────────────────────────────────────
+*.class
+*.jar
+target/
