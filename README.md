@@ -33,7 +33,7 @@ MIS774-ICE-Entertainment-DW/
 ├── README.md
 ├── .gitignore
 │
-├── data/
+├── Dataset/
 │   └── source/                        # Original source data files (read-only)
 │       ├── Customer.xlsx
 │       ├── Order_Header.xlsx
@@ -43,7 +43,7 @@ MIS774-ICE-Entertainment-DW/
 │       ├── Subscription.xlsx
 │       └── ... (all reference/lookup tables)
 │
-├── sql/
+├── SQL Scripts/
 │   ├── 01_create_database.sql         # Create the dw database
 │   ├── 02_dim_date.sql                # Date dimension (provided)
 │   ├── 03_dim_customer.sql            # Customer dimension (SCD Type 2)
@@ -54,7 +54,7 @@ MIS774-ICE-Entertainment-DW/
 │   ├── 08_fact_sales.sql              # Central fact table
 │   └── 09_analytical_queries.sql      # Management insight queries
 │
-├── etl/                               # Pentaho Data Integration files
+├── Pentaho/                               # Pentaho Data Integration files
 │   ├── load_dim_customer.ktr
 │   ├── load_dim_product.ktr
 │   ├── load_dim_store.ktr
@@ -63,11 +63,11 @@ MIS774-ICE-Entertainment-DW/
 │   ├── load_fact_sales.ktr
 │   └── master_job.kjb
 │
-├── report/
+├── Report/
 │   ├── MIS774_Assessment1_Report.docx
 │   └── screenshots/                   # MySQL Workbench diagrams, Pentaho screenshots
 │
-└── docs/
+└── Docs/
     ├── data_dictionary.md
     └── meeting_notes.md
 ```
