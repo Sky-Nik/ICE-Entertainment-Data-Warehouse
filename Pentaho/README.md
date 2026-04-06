@@ -12,7 +12,8 @@ This folder contains the Pentaho Data Integration (PDI) transformation that load
 ## Transformation Canvas Layout
 
 The transformation is organised into 13 parallel pipelines, each following the pattern:
-![State_etl](Docs/Stage_etl.png)
+
+![Stage_ETL Transformation](Docs/Stage_etl.png)
 ```
 [Excel Input] ──► [Table Output]
 ```
