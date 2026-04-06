@@ -40,18 +40,9 @@ A unified **star schema data warehouse** that integrates both source systems int
  
 ## Data Warehouse Architecture
  
-### Three Layer Architecture
+### Five Layer Architecture
  
-```
-Layer 1 — SOURCE          Layer 2 — STAGING (stg)     Layer 3 — WAREHOUSE (dw)
-─────────────────         ───────────────────────      ────────────────────────
-Customer.xlsx             stg_customer                 dim_customer
-Product.xlsx       →      stg_product          →       dim_product
-Order_Header.xlsx         stg_order_header             fact_sales
-Order_Details.xlsx        stg_order_details            dim_store
-Store.xlsx                stg_store                    dim_date
-...                       ...                          ...
-```
+![Data Flow Architecture](Reports/data_flow_architecture.svg)
  
 ### Star Schema
  
