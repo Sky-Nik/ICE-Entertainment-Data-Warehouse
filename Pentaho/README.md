@@ -13,7 +13,7 @@ This folder contains the Pentaho Data Integration (PDI) transformation that load
 
 The transformation is organised into 13 parallel pipelines, each following the pattern:
 
-<img src="../Docs/Stage_etl.png" alt="Stage_ETL Transformation" width="100%"/>
+<img src="../Reports/Stage_etl.png" alt="Stage_ETL Transformation" width="100%"/>
 ```
 [Excel Input] ──► [Table Output]
 ```
