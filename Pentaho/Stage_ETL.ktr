@@ -471,7 +471,7 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Order_Header</from>
+      <from>Order_Header.xlsx</from>
       <to>stg_order_header</to>
       <enabled>Y</enabled>
     </hop>
@@ -526,7 +526,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\ERP System\Currency.xlsx</name>
+      <name>/Users/anastasia/Documents/GitHub/ICE-Entertainment-Data-Warehouse/dataset/ERP System/Currency.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -623,7 +623,22 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\ERP System\Currency_Rate.xlsx</name>
+      <name>/Users/anastasia/Documents/GitHub/ICE-Entertainment-Data-Warehouse/dataset/ERP System/Currency_Rate.xlsx</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+      <name/>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+      <name/>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+      <name/>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -756,7 +771,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\Customer.xlsx</name>
+      <name>/Users/anastasia/Documents/GitHub/ICE-Entertainment-Data-Warehouse/dataset/Sales System/Customer.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -1177,7 +1192,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\Division.xlsx</name>
+      <name>/Users/anastasia/Documents/GitHub/ICE-Entertainment-Data-Warehouse/dataset/Sales System/Division.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -1274,7 +1289,17 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\House_Hold_Income.xlsx</name>
+      <name>/Users/anastasia/Documents/GitHub/ICE-Entertainment-Data-Warehouse/dataset/Sales System/House_Hold_Income.xlsx</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+      <name/>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+      <name/>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -1395,7 +1420,12 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\Order_Details.xlsx</name>
+      <name>/Users/anastasia/Documents/GitHub/ICE-Entertainment-Data-Warehouse/dataset/Sales System/Order_Details.xlsx</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+      <name/>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -1516,7 +1546,7 @@
     </GUI>
   </step>
   <step>
-    <name>Order_Header</name>
+    <name>Order_Header.xlsx</name>
     <type>ExcelInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1540,7 +1570,12 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\Order_Header.xlsx</name>
+      <name>/Users/anastasia/Documents/GitHub/ICE-Entertainment-Data-Warehouse/dataset/Sales System/Order_Header.xlsx</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+      <name/>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -1709,7 +1744,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\ERP System\Package.xlsx</name>
+      <name>/Users/anastasia/Documents/GitHub/ICE-Entertainment-Data-Warehouse/dataset/ERP System/Package.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -1842,7 +1877,12 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\ERP System\Product.xlsx</name>
+      <name>/Users/anastasia/Documents/GitHub/ICE-Entertainment-Data-Warehouse/dataset/ERP System/Product.xlsx</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+      <name/>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -2059,7 +2099,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\ERP System\Product_Type.xlsx</name>
+      <name>/Users/anastasia/Documents/GitHub/ICE-Entertainment-Data-Warehouse/dataset/ERP System/Product_Type.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -2168,7 +2208,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\Region.xlsx</name>
+      <name>/Users/anastasia/Documents/GitHub/ICE-Entertainment-Data-Warehouse/dataset/Sales System/Region.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -2277,7 +2317,17 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\Store.xlsx</name>
+      <name>/Users/anastasia/Documents/GitHub/ICE-Entertainment-Data-Warehouse/dataset/Sales System/Store.xlsx</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+      <name/>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+      <name/>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -2554,7 +2604,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\Subscription.xlsx</name>
+      <name>/Users/anastasia/Documents/GitHub/ICE-Entertainment-Data-Warehouse/dataset/Sales System/Subscription.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -3021,7 +3071,7 @@
       </field>
       <field>
         <column_name>purchase_type</column_name>
-        <stream_name>purchase_type</stream_name>
+        <stream_name>Purchase type</stream_name>
       </field>
     </fields>
     <attributes/>
