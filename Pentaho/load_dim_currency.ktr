@@ -580,8 +580,8 @@ LEFT JOIN stg.stg_currency c
       </output>
     </remotesteps>
     <GUI>
-      <xloc>200</xloc>
-      <yloc>100</yloc>
+      <xloc>176</xloc>
+      <yloc>64</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -713,8 +713,8 @@ WHERE cr.currency_code = 'AUD'</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>192</xloc>
-      <yloc>192</yloc>
+      <xloc>176</xloc>
+      <yloc>208</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
