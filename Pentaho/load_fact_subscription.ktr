@@ -456,29 +456,32 @@
     <sql>Select 
        dd.date_key,
        dc.customer_key,
-       ds.subscription_key,
        dp.package_key,
        dc.preferred_channel1                     AS channel,
-       DATEDIFF(IFNULL(ds.end_date, CURRENT_DATE), 
-       ds.start_date)                            AS subscription_duration_days,
+       DATEDIFF(IFNULL(dp.package_subscription_end_date , CURRENT_DATE), 
+       dp.package_subscription_start_date)          AS subscription_duration_days,
+	   
+       dp.subscription_status,
        
 	CASE
-        WHEN ds.status = 'Active' THEN 1
+        WHEN dp.subscription_status = 'Active' THEN 1
         ELSE 0
     END                                          AS active_flag,
     CASE
-        WHEN ds.status = 'Cancelled' THEN 1
+        WHEN dp.subscription_status = 'Cancelled' THEN 1
         ELSE 0
-    END                                         AS cancelled_flag
+    END                                         AS cancelled_flag,
+    CASE
+        WHEN dp.subscription_status = 'Expired' THEN 1
+        ELSE 0
+    END                                         AS expired_flag
 
-FROM dw.dim_subscription ds
-JOIN dw.dim_customer dc
-   ON dc.customer_number = ds.customer_id
-   AND dc.is_current = 1
-JOIN dw.dim_package dp
-   ON ds.package_id = dp.package_id
+FROM dw.dim_package dp
+JOIN dw.dim_customer dc 
+    ON dc.customer_number = dp.subscription_customer
+    AND dc.is_current = 1
 JOIN dw.dim_date  dd
-   ON ds.start_date = dd.sql_date</sql>
+   ON dp.package_subscription_start_date = dd.sql_date</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -517,29 +520,6 @@ JOIN dw.dim_date  dd
         <precision>0</precision>
         <origin>subscription_package_query</origin>
         <comments>customer_key</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>subscription_key</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>subscription_package_query</origin>
-        <comments>subscription_key</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -670,6 +650,29 @@ JOIN dw.dim_date  dd
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>expired_flag</name>
+        <length>15</length>
+        <precision>0</precision>
+        <origin>subscription_package_query</origin>
+        <comments>expired_flag</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_IN</date_format_locale>
+        <date_format_timezone>Australia/Sydney</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
     </row-meta>
     <attributes/>
     <cluster_schema/>
@@ -703,7 +706,7 @@ JOIN dw.dim_date  dd
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
+    <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
     <partitioning_daily>N</partitioning_daily>
@@ -714,6 +717,42 @@ JOIN dw.dim_date  dd
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
+      <field>
+        <column_name>date_key</column_name>
+        <stream_name>date_key</stream_name>
+      </field>
+      <field>
+        <column_name>customer_key</column_name>
+        <stream_name>customer_key</stream_name>
+      </field>
+      <field>
+        <column_name>package_key</column_name>
+        <stream_name>package_key</stream_name>
+      </field>
+      <field>
+        <column_name>channel</column_name>
+        <stream_name>channel</stream_name>
+      </field>
+      <field>
+        <column_name>subscription_duration_days</column_name>
+        <stream_name>subscription_duration_days</stream_name>
+      </field>
+      <field>
+        <column_name>subscription_status</column_name>
+        <stream_name>subscription_status</stream_name>
+      </field>
+      <field>
+        <column_name>active_flag</column_name>
+        <stream_name>active_flag</stream_name>
+      </field>
+      <field>
+        <column_name>cancelled_flag</column_name>
+        <stream_name>cancelled_flag</stream_name>
+      </field>
+      <field>
+        <column_name>expired_flag</column_name>
+        <stream_name>expired_flag</stream_name>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>

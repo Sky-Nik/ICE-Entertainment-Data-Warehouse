@@ -455,13 +455,22 @@
     <connection>edm_ass1</connection>
     <sql>SELECT 
      p.package_id,
+     c.customer_number AS subscription_customer,
      p.name,
      p.description,
      pt.package_type AS package_type,
-     p.package_price
+     p.package_price,
+     c.preferred_channel1 AS subscription_channel,
+     s.start_date  AS package_subscription_start_date,
+     s.end_date    AS package_subscription_end_date,
+     s.status      AS subscription_status
 FROM stg.stg_package p
 JOIN stg.stg_package_type pt
-   ON p.package_type = pt.package_type_code;</sql>
+   ON p.package_type = pt.package_type_code
+JOIN stg.stg_subscription s
+    ON p.package_id = s.package_id
+JOIN stg.stg_customer c
+    ON c.customer_number = s.customer_id</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -475,7 +484,7 @@ JOIN stg.stg_package_type pt
         <name>package_id</name>
         <length>9</length>
         <precision>0</precision>
-        <origin>Table input</origin>
+        <origin>stg_package</origin>
         <comments>package_id</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
         <decimal_symbol>.</decimal_symbol>
@@ -498,7 +507,7 @@ JOIN stg.stg_package_type pt
         <name>name</name>
         <length>100</length>
         <precision>-1</precision>
-        <origin>Table input</origin>
+        <origin>stg_package</origin>
         <comments>name</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
@@ -521,7 +530,7 @@ JOIN stg.stg_package_type pt
         <name>description</name>
         <length>255</length>
         <precision>-1</precision>
-        <origin>Table input</origin>
+        <origin>stg_package</origin>
         <comments>description</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
@@ -544,7 +553,7 @@ JOIN stg.stg_package_type pt
         <name>package_type</name>
         <length>100</length>
         <precision>-1</precision>
-        <origin>Table input</origin>
+        <origin>stg_package</origin>
         <comments>package_type</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
@@ -567,9 +576,78 @@ JOIN stg.stg_package_type pt
         <name>package_price</name>
         <length>10</length>
         <precision>2</precision>
-        <origin>Table input</origin>
+        <origin>stg_package</origin>
         <comments>package_price</comments>
         <conversion_Mask>####0.0#########;-####0.0#########</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_IN</date_format_locale>
+        <date_format_timezone>Australia/Sydney</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>package_subscription_start_date</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>stg_package</origin>
+        <comments>package_subscription_start_date</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_IN</date_format_locale>
+        <date_format_timezone>Australia/Sydney</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>package_subscription_end_date</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>stg_package</origin>
+        <comments>package_subscription_end_date</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_IN</date_format_locale>
+        <date_format_timezone>Australia/Sydney</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>subscription_status</name>
+        <length>20</length>
+        <precision>-1</precision>
+        <origin>stg_package</origin>
+        <comments>subscription_status</comments>
+        <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
         <currency_symbol/>
@@ -617,7 +695,7 @@ JOIN stg.stg_package_type pt
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
+    <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
     <partitioning_daily>N</partitioning_daily>
@@ -628,6 +706,46 @@ JOIN stg.stg_package_type pt
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
+      <field>
+        <column_name>package_id</column_name>
+        <stream_name>package_id</stream_name>
+      </field>
+      <field>
+        <column_name>subscription_customer</column_name>
+        <stream_name>subscription_customer</stream_name>
+      </field>
+      <field>
+        <column_name>name</column_name>
+        <stream_name>name</stream_name>
+      </field>
+      <field>
+        <column_name>description</column_name>
+        <stream_name>description</stream_name>
+      </field>
+      <field>
+        <column_name>package_type</column_name>
+        <stream_name>package_type</stream_name>
+      </field>
+      <field>
+        <column_name>package_price</column_name>
+        <stream_name>package_price</stream_name>
+      </field>
+      <field>
+        <column_name>subscription_channel</column_name>
+        <stream_name>subscription_channel</stream_name>
+      </field>
+      <field>
+        <column_name>package_subscription_start_date</column_name>
+        <stream_name>package_subscription_start_date</stream_name>
+      </field>
+      <field>
+        <column_name>package_subscription_end_date</column_name>
+        <stream_name>package_subscription_end_date</stream_name>
+      </field>
+      <field>
+        <column_name>subscription_status</column_name>
+        <stream_name>subscription_status</stream_name>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
