@@ -1,18 +1,19 @@
-CREATE TABLE dim_customer (
-    customer_key        INT           NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS dw.dim_customer;
+CREATE TABLE dw.dim_customer (
+    customer_key        INT           NOT NULL AUTO_INCREMENT PRIMARY KEY,
     customer_number     INT           NOT NULL,
-    name                VARCHAR(255)  NOT NULL,
+    customer_name                VARCHAR(255)  NOT NULL,
     gender              VARCHAR(100)  NOT NULL,
     date_of_birth       DATE          NOT NULL,
     age_group           VARCHAR(20)   NOT NULL,
     city                VARCHAR(100)  NOT NULL,
     state               CHAR(10)      NULL,
-    zipcode     dim_date        VARCHAR(20)   NOT NULL,
+    zipcode             VARCHAR(20)   NOT NULL,
     country             VARCHAR(100)  NOT NULL,
-    market              VARCHAR(50)   NOT NULL,
     customer_type       CHAR(1)       NOT NULL,
     status              CHAR(2)       NOT NULL,
     occupation          VARCHAR(100)  NULL,
+    occupation_category VARCHAR(100)  NOT NULL,
     household_income    VARCHAR(50)   NULL,
     permission          CHAR(1)       NULL,
     preferred_channel1  VARCHAR(100)  NULL,
@@ -20,9 +21,9 @@ CREATE TABLE dim_customer (
     interest1           VARCHAR(100)  NULL,
     interest2           VARCHAR(100)  NULL,
     interest3           VARCHAR(100)  NULL,
-    effective_date      DATE          NOT NULL,
-    expiry_date         DATE          NULL,
-    is_current          TINYINT(1)    NOT NULL DEFAULT 1,
-    CONSTRAINT pk_dim_customer 
-        PRIMARY KEY (customer_key)
+    customer_effective_start_date      DATE          NOT NULL,
+    customer_effective_end_date         DATE          NULL,
+    customer_current_flag          TINYINT    NOT NULL DEFAULT 1,
+    CONSTRAINT uq_dim_customer_version
+        UNIQUE (customer_number, customer_effective_start_date)
 );
