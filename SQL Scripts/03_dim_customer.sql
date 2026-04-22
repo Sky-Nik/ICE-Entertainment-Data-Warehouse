@@ -5,6 +5,7 @@ CREATE TABLE dw.dim_customer (
     customer_name                VARCHAR(255)  NOT NULL,
     gender              VARCHAR(100)  NOT NULL,
     date_of_birth       DATE          NOT NULL,
+    date_registered     DATE          NOT NULL,
     age_group           VARCHAR(20)   NOT NULL,
     city                VARCHAR(100)  NOT NULL,
     state               CHAR(10)      NULL,
