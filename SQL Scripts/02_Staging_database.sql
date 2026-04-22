@@ -10,7 +10,7 @@ USE stg;
 -- ============================================================
 -- CREATE STAGING TABLE FOR ORDER DETAILS
 -- ============================================================
-
+DROP TABLE IF EXISTS stg_order_details;
 CREATE TABLE stg_order_details (
     order_id        INT,
     line_no         INT,
@@ -23,6 +23,7 @@ CREATE TABLE stg_order_details (
 -- ============================================================
 -- CREATE STAGING TABLE FOR ORDER HEADER
 -- ============================================================
+DROP TABLE IF EXISTS stg_order_header;
 CREATE TABLE stg_order_header (
     order_id            INT,
     order_date          VARCHAR(20),
@@ -37,7 +38,7 @@ CREATE TABLE stg_order_header (
 -- ============================================================
 --  CREATE STAGING TABLE FOR CUSTOMER
 -- ============================================================
-
+DROP TABLE IF EXISTS stg_customer;
 CREATE TABLE stg_customer (
     customer_number     INT,
     account_number      VARCHAR(50),
@@ -73,6 +74,7 @@ CREATE TABLE stg_customer (
 -- ============================================================
 -- CREATE STAGING TABLE FOR STORE
 -- ============================================================
+DROP TABLE IF EXISTS stg_store;
 CREATE TABLE stg_store (
     store_number    INT,
     store_name      VARCHAR(100),
@@ -96,6 +98,7 @@ CREATE TABLE stg_store (
 -- ============================================================
 -- CREATE STAGING TABLE FOR PRODUCT
 -- ============================================================
+DROP TABLE IF EXISTS stg_product;
 CREATE TABLE stg_product (
     product_code        INT,
     name                VARCHAR(255),
@@ -114,6 +117,7 @@ CREATE TABLE stg_product (
 -- ============================================================
 -- CREATE TABLE FOR STAGING TABLE FOR PRODUCT TYPE
 -- ============================================================
+DROP TABLE IF EXISTS stg_product_type;
 CREATE TABLE stg_product_type (
     product_type_code   CHAR(2),
     product_type        VARCHAR(100),
@@ -123,6 +127,7 @@ CREATE TABLE stg_product_type (
 -- ============================================================
 -- CREATE TABLE FOR PACKAGE
 -- ============================================================
+DROP TABLE IF EXISTS stg_package;
 CREATE TABLE stg_package (
     package_id      INT,
     name            VARCHAR(100),
@@ -134,6 +139,7 @@ CREATE TABLE stg_package (
 -- ============================================================
 -- CREATE TABLE FOR SUBSCRIPTION
 -- ============================================================
+DROP TABLE IF EXISTS stg_subscription;
 CREATE TABLE stg_subscription (
     subscription_id     INT,
     customer_id         INT,
@@ -148,6 +154,7 @@ CREATE TABLE stg_subscription (
 -- ============================================================
 -- CREATE TABLE FOR REGION
 -- ============================================================
+DROP TABLE IF EXISTS stg_region;
 CREATE TABLE stg_region (
     region_code     CHAR(10),
     region_name     VARCHAR(100),
@@ -157,6 +164,7 @@ CREATE TABLE stg_region (
 -- ============================================================
 -- CREATE STAGING TABLE FOR DIVISION
 -- ============================================================
+DROP TABLE IF EXISTS stg_division;
 CREATE TABLE stg_division (
     division_code   CHAR(10),
     division_name   VARCHAR(100)
@@ -165,6 +173,7 @@ CREATE TABLE stg_division (
 -- ============================================================
 -- CREATE STAGING TABLE FOR HOUSE HOLD INCOME
 -- ============================================================
+DROP TABLE IF EXISTS stg_house_hold_income;
 CREATE TABLE stg_house_hold_income (
     household_income_code   INT,
     lower_limit             DECIMAL(10,2),
@@ -175,6 +184,7 @@ CREATE TABLE stg_house_hold_income (
 -- ============================================================
 -- CREATE STAGING TABLE FOR CURRENCY RATE
 -- ============================================================
+DROP TABLE IF EXISTS stg_currency_rate;
 CREATE TABLE stg_currency_rate (
     effective_date  VARCHAR(30),
     currency_code   CHAR(3),
@@ -186,6 +196,7 @@ CREATE TABLE stg_currency_rate (
 -- ============================================================
 -- CREATE STAGING TABLE FOR CURRENCY
 -- ============================================================
+DROP TABLE IF EXISTS stg_currency;
 CREATE TABLE stg_currency (
     currency_code   CHAR(3),
     currency_name   VARCHAR(100)
@@ -194,6 +205,7 @@ CREATE TABLE stg_currency (
 -- ============================================================
 -- CREATE STAGING TABLE FOR CHANNEL
 -- ============================================================
+DROP TABLE IF EXISTS stg_channel;
 CREATE TABLE stg_channel (
     name            VARCHAR(50),
     description     VARCHAR(50),
@@ -205,6 +217,7 @@ CREATE TABLE stg_channel (
 -- ============================================================
 -- CREATE STAGING TABLE FOR CUSTOMER_STATUS
 -- ============================================================
+DROP TABLE IF EXISTS stg_customer_status;
 CREATE TABLE stg_customer_status (
     customer_status_code        CHAR(10),
     description     			VARCHAR(50)
@@ -213,14 +226,16 @@ CREATE TABLE stg_customer_status (
 -- ============================================================
 -- CREATE STAGING TABLE FOR CUSTOMER_TYPE
 -- ============================================================
-CREATE TABLE stg_customer_status (
-    customer_status_code        CHAR(10),
-    description     			VARCHAR(50)
+DROP TABLE IF EXISTS stg_customer_type;
+CREATE TABLE IF NOT EXISTS stg_customer_type (
+    customer_type_code CHAR(1),
+    description VARCHAR(100)
 );
 
 -- ============================================================
 -- CREATE STAGING TABLE FOR PRODUCT_STATUS
 -- ============================================================
+DROP TABLE IF EXISTS stg_product_status;
 CREATE TABLE stg_product_status (
     product_status_code  CHAR(10),
     product_status       VARCHAR(50)
@@ -229,6 +244,7 @@ CREATE TABLE stg_product_status (
 -- ============================================================
 -- CREATE STAGING TABLE FOR INTEREST
 -- ============================================================
+DROP TABLE IF EXISTS stg_interest;
 CREATE TABLE  stg_interest (
     interest 					VARCHAR(100),
     description 				VARCHAR(255),
@@ -240,6 +256,7 @@ CREATE TABLE  stg_interest (
 -- ============================================================
 -- CREATE STAGING TABLE FOR OCCUPATION
 -- ============================================================
+DROP TABLE IF EXISTS stg_occupation;
 CREATE TABLE  stg_occupation (
     occupation_code 			INT,
     occupation 					VARCHAR(100),
@@ -250,6 +267,7 @@ CREATE TABLE  stg_occupation (
 -- ============================================================
 -- CREATE STAGING TABLE FOR Email_Address_Type
 -- ============================================================
+DROP TABLE IF EXISTS stg_email_address_type;
 CREATE TABLE stg_email_address_type (
     email_address_type_code 	CHAR(10),
     email_address_type 			VARCHAR(50),
@@ -260,6 +278,7 @@ CREATE TABLE stg_email_address_type (
 -- ============================================================
 -- CREATE STAGING TABLE FOR Address_Type
 -- ============================================================
+DROP TABLE IF EXISTS stg_address_type;
 CREATE TABLE IF NOT EXISTS stg_address_type (
     address_type_code  		CHAR(10),
     address_type 			VARCHAR(50),
@@ -269,6 +288,7 @@ CREATE TABLE IF NOT EXISTS stg_address_type (
 -- ============================================================
 -- CREATE STAGING TABLE FOR Permission
 -- ============================================================
+DROP TABLE IF EXISTS stg_permission;
 CREATE TABLE  stg_permission (
     permission_code 		CHAR(10),
     description 			VARCHAR(255)
@@ -277,6 +297,7 @@ CREATE TABLE  stg_permission (
 -- ============================================================
 -- CREATE STAGING TABLE FOR Phone_Number_Type
 -- ============================================================
+DROP TABLE IF EXISTS stg_phone_number_type;
 CREATE TABLE stg_phone_number_type (
     phone_number_type_code 		CHAR(10),
     phone_number_type 			VARCHAR(50),
@@ -286,6 +307,7 @@ CREATE TABLE stg_phone_number_type (
 -- ============================================================
 -- CREATE STAGING TABLE FOR State
 -- ============================================================
+DROP TABLE IF EXISTS stg_state;
 CREATE TABLE stg_state (
     state_code 				CHAR(30),
     state_name 				VARCHAR(100),
@@ -299,6 +321,7 @@ CREATE TABLE stg_state (
 -- ============================================================
 -- CREATE STAGING TABLE FOR Customer_Type
 -- ============================================================
+DROP TABLE IF EXISTS stg_customer_type;
 CREATE TABLE stg_customer_type (
     customer_type_code 	CHAR(10),
     description 		VARCHAR(100)
@@ -307,6 +330,7 @@ CREATE TABLE stg_customer_type (
 -- ============================================================
 -- CREATE STAGING TABLE FOR Package_Type
 -- ============================================================
+DROP TABLE IF EXISTS stg_package_type;
 CREATE TABLE stg_package_type (
     package_type_code 	CHAR(20),
     package_type 		VARCHAR(100)
@@ -315,15 +339,8 @@ CREATE TABLE stg_package_type (
 -- ============================================================
 -- CREATE STAGING TABLE FOR Product_Category
 -- ============================================================
+DROP TABLE IF EXISTS stg_product_category;
 CREATE TABLE stg_product_category (
     product_category 		VARCHAR(100),
     description 			VARCHAR(255)
 );
-
-
-
-
-
-
-
-

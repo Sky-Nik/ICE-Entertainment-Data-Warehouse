@@ -452,7 +452,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>dw</schema>
     <table>dim_customer</table>
     <commit>1000</commit>
@@ -475,10 +475,6 @@
         <stream_name>customer_number</stream_name>
       </field>
       <field>
-        <column_name>account_number</column_name>
-        <stream_name>account_number</stream_name>
-      </field>
-      <field>
         <column_name>customer_type</column_name>
         <stream_name>customer_type</stream_name>
       </field>
@@ -491,28 +487,12 @@
         <stream_name>gender</stream_name>
       </field>
       <field>
-        <column_name>email_address</column_name>
-        <stream_name>email_address</stream_name>
-      </field>
-      <field>
         <column_name>date_of_birth</column_name>
         <stream_name>date_of_birth</stream_name>
       </field>
       <field>
-        <column_name>address1</column_name>
-        <stream_name>address1</stream_name>
-      </field>
-      <field>
-        <column_name>address2</column_name>
-        <stream_name>address2</stream_name>
-      </field>
-      <field>
-        <column_name>address3</column_name>
-        <stream_name>address3</stream_name>
-      </field>
-      <field>
-        <column_name>address4</column_name>
-        <stream_name>address4</stream_name>
+        <column_name>age_group</column_name>
+        <stream_name>age_group</stream_name>
       </field>
       <field>
         <column_name>city</column_name>
@@ -531,36 +511,20 @@
         <stream_name>country</stream_name>
       </field>
       <field>
-        <column_name>phone_number</column_name>
-        <stream_name>phone_number</stream_name>
-      </field>
-      <field>
         <column_name>occupation</column_name>
         <stream_name>occupation</stream_name>
-      </field>
-      <field>
-        <column_name>age_group</column_name>
-        <stream_name>age_group</stream_name>
       </field>
       <field>
         <column_name>household_income</column_name>
         <stream_name>household_income</stream_name>
       </field>
       <field>
-        <column_name>market</column_name>
-        <stream_name>market</stream_name>
-      </field>
-      <field>
         <column_name>status</column_name>
         <stream_name>status</stream_name>
       </field>
       <field>
-        <column_name>date_registered</column_name>
-        <stream_name>date_registered</stream_name>
-      </field>
-      <field>
-        <column_name>permission</column_name>
-        <stream_name>permission</stream_name>
+        <column_name>market</column_name>
+        <stream_name>market</stream_name>
       </field>
       <field>
         <column_name>preferred_channel1</column_name>
@@ -571,24 +535,12 @@
         <stream_name>preferred_channel2</stream_name>
       </field>
       <field>
-        <column_name>interest1</column_name>
-        <stream_name>interest1</stream_name>
+        <column_name>effective_date</column_name>
+        <stream_name>effective_date</stream_name>
       </field>
       <field>
-        <column_name>interest2</column_name>
-        <stream_name>interest2</stream_name>
-      </field>
-      <field>
-        <column_name>interest3</column_name>
-        <stream_name>interest3</stream_name>
-      </field>
-      <field>
-        <column_name>created</column_name>
-        <stream_name>created</stream_name>
-      </field>
-      <field>
-        <column_name>last_updated</column_name>
-        <stream_name>last_updated</stream_name>
+        <column_name>expiry_date</column_name>
+        <stream_name>expiry_date</stream_name>
       </field>
       <field>
         <column_name>is_current</column_name>
@@ -620,57 +572,38 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <sql>SELECT
     c.customer_number,
-	c.account_number,
-    ct.description AS customer_type,
     c.name,
     c.gender,
-    c.email_address,
-    STR_TO_DATE(c.date_of_birth, '%Y-%m-%d')        AS date_of_birth,
-	c.address1,
-    c.address2,
-    c.address3,
-    c.address4,
-	c.city,
-    cs.state_name                                   AS state,
+    c.date_of_birth,
+    CASE 
+        WHEN TIMESTAMPDIFF(YEAR, c.date_of_birth, CURDATE()) &lt;= 30 THEN '30 and under'
+        WHEN TIMESTAMPDIFF(YEAR, c.date_of_birth, CURDATE()) &lt;= 50 THEN '31 to 50'
+        ELSE 'Over 50'
+    END AS age_group,
+    c.city,
+    c.state,
     c.zipcode,
     c.country,
-    c.phone_number,
-    c.occupation,
-    CASE
-        WHEN TIMESTAMPDIFF(YEAR, STR_TO_DATE(c.date_of_birth, '%Y-%m-%d'), CURDATE()) &lt;= 30
-            THEN '30 and under'
-        WHEN TIMESTAMPDIFF(YEAR, STR_TO_DATE(c.date_of_birth, '%Y-%m-%d'), CURDATE()) &lt;= 50
-            THEN '31 to 50'
-        ELSE 'Over 50'
-    END                                              AS age_group,
-    hhi.description                                  AS household_income,
     c.market,
-    s.description                                   AS status,
-    c.date_registered,
-    cp.description                                   AS permission,
+    c.customer_type,
+    c.status,
+    c.occupation,
+    h.description AS household_income,
+    c.permission,
     c.preferred_channel1,
     c.preferred_channel2,
     c.interest1,
     c.interest2,
     c.interest3,
-    STR_TO_DATE(c.created, '%Y-%m-%d')             	 AS created,
-    STR_TO_DATE(c.last_updated, '%Y-%m-%d')        	 AS last_updated,
-    1                                                AS is_current
-    
+    DATE(NOW()) AS effective_date,
+    NULL AS expiry_date,
+    1 AS is_current
 FROM stg.stg_customer c
-JOIN stg.stg_house_hold_income hhi
-    ON c.household_income = hhi.household_income_code
-JOIN stg.stg_customer_type ct
-   ON c.customer_type = ct.customer_type_code
-JOIN stg.stg_state cs
-   ON c.state = cs.state_code
-JOIN stg.stg_customer_status s
-   ON c.status = s.customer_status_code
-JOIN stg.stg_permission cp
-   ON c.permission = cp.permission_code</sql>
+LEFT JOIN stg.stg_house_hold_income h 
+    ON c.household_income = h.household_income_code</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -697,53 +630,7 @@ JOIN stg.stg_permission cp
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>account_number</name>
-        <length>50</length>
-        <precision>-1</precision>
-        <origin>stg_customer</origin>
-        <comments>account_number</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>customer_type</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>stg_customer</origin>
-        <comments>customer_type</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -766,7 +653,7 @@ JOIN stg.stg_permission cp
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -789,38 +676,15 @@ JOIN stg.stg_permission cp
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>email_address</name>
-        <length>255</length>
-        <precision>-1</precision>
-        <origin>stg_customer</origin>
-        <comments>email_address</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Date</type>
-        <storagetype>normal</storagetype>
         <name>date_of_birth</name>
-        <length>-1</length>
+        <length>20</length>
         <precision>-1</precision>
         <origin>stg_customer</origin>
         <comments>date_of_birth</comments>
@@ -835,237 +699,7 @@ JOIN stg.stg_permission cp
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>address1</name>
-        <length>255</length>
-        <precision>-1</precision>
-        <origin>stg_customer</origin>
-        <comments>address1</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>address2</name>
-        <length>255</length>
-        <precision>-1</precision>
-        <origin>stg_customer</origin>
-        <comments>address2</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>address3</name>
-        <length>255</length>
-        <precision>-1</precision>
-        <origin>stg_customer</origin>
-        <comments>address3</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>address4</name>
-        <length>255</length>
-        <precision>-1</precision>
-        <origin>stg_customer</origin>
-        <comments>address4</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>city</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>stg_customer</origin>
-        <comments>city</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>state</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>stg_customer</origin>
-        <comments>state</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>zipcode</name>
-        <length>20</length>
-        <precision>-1</precision>
-        <origin>stg_customer</origin>
-        <comments>zipcode</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>country</name>
-        <length>10</length>
-        <precision>-1</precision>
-        <origin>stg_customer</origin>
-        <comments>country</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>phone_number</name>
-        <length>20</length>
-        <precision>-1</precision>
-        <origin>stg_customer</origin>
-        <comments>phone_number</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>occupation</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>stg_customer</origin>
-        <comments>occupation</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -1088,18 +722,18 @@ JOIN stg.stg_permission cp
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>household_income</name>
+        <name>city</name>
         <length>100</length>
         <precision>-1</precision>
         <origin>stg_customer</origin>
-        <comments>household_income</comments>
+        <comments>city</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -1111,7 +745,76 @@ JOIN stg.stg_permission cp
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
+        <date_format_timezone>Australia/Sydney</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>state</name>
+        <length>10</length>
+        <precision>-1</precision>
+        <origin>stg_customer</origin>
+        <comments>state</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_AU</date_format_locale>
+        <date_format_timezone>Australia/Sydney</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>zipcode</name>
+        <length>20</length>
+        <precision>-1</precision>
+        <origin>stg_customer</origin>
+        <comments>zipcode</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_AU</date_format_locale>
+        <date_format_timezone>Australia/Sydney</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>country</name>
+        <length>10</length>
+        <precision>-1</precision>
+        <origin>stg_customer</origin>
+        <comments>country</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -1134,7 +837,30 @@ JOIN stg.stg_permission cp
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
+        <date_format_timezone>Australia/Sydney</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>customer_type</name>
+        <length>1</length>
+        <precision>-1</precision>
+        <origin>stg_customer</origin>
+        <comments>customer_type</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -1142,7 +868,7 @@ JOIN stg.stg_permission cp
         <type>String</type>
         <storagetype>normal</storagetype>
         <name>status</name>
-        <length>50</length>
+        <length>2</length>
         <precision>-1</precision>
         <origin>stg_customer</origin>
         <comments>status</comments>
@@ -1157,18 +883,18 @@ JOIN stg.stg_permission cp
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>date_registered</name>
-        <length>20</length>
+        <name>occupation</name>
+        <length>100</length>
         <precision>-1</precision>
         <origin>stg_customer</origin>
-        <comments>date_registered</comments>
+        <comments>occupation</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -1180,7 +906,30 @@ JOIN stg.stg_permission cp
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
+        <date_format_timezone>Australia/Sydney</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>household_income</name>
+        <length>100</length>
+        <precision>-1</precision>
+        <origin>stg_customer</origin>
+        <comments>household_income</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -1188,7 +937,7 @@ JOIN stg.stg_permission cp
         <type>String</type>
         <storagetype>normal</storagetype>
         <name>permission</name>
-        <length>255</length>
+        <length>1</length>
         <precision>-1</precision>
         <origin>stg_customer</origin>
         <comments>permission</comments>
@@ -1203,7 +952,7 @@ JOIN stg.stg_permission cp
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -1226,7 +975,7 @@ JOIN stg.stg_permission cp
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -1249,7 +998,7 @@ JOIN stg.stg_permission cp
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -1272,7 +1021,7 @@ JOIN stg.stg_permission cp
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -1295,7 +1044,7 @@ JOIN stg.stg_permission cp
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -1318,18 +1067,18 @@ JOIN stg.stg_permission cp
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
       <value-meta>
         <type>Date</type>
         <storagetype>normal</storagetype>
-        <name>created</name>
+        <name>effective_date</name>
         <length>-1</length>
         <precision>-1</precision>
         <origin>stg_customer</origin>
-        <comments>created</comments>
+        <comments>effective_date</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -1341,18 +1090,18 @@ JOIN stg.stg_permission cp
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
       <value-meta>
-        <type>Date</type>
+        <type>String</type>
         <storagetype>normal</storagetype>
-        <name>last_updated</name>
+        <name>expiry_date</name>
         <length>-1</length>
-        <precision>-1</precision>
+        <precision>0</precision>
         <origin>stg_customer</origin>
-        <comments>last_updated</comments>
+        <comments>expiry_date</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -1364,7 +1113,7 @@ JOIN stg.stg_permission cp
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -1387,7 +1136,7 @@ JOIN stg.stg_permission cp
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>

@@ -596,7 +596,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\Sales System\Address_Type.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\Address_Type.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -705,7 +705,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\Sales System\Channel.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\Channel.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -838,7 +838,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\ERP System\Currency.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\ERP System\Currency.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -935,7 +935,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\ERP System\Currency_Rate.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\ERP System\Currency_Rate.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -1068,7 +1068,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\Sales System\Customer.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\Customer.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -1489,7 +1489,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\Sales System\Customer_Status.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\Customer_Status.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -1586,7 +1586,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\Sales System\Customer_Type.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\Customer_Type.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -1683,7 +1683,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\Sales System\Division.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\Division.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -1780,7 +1780,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\Sales System\Email_Address_Type.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\Email_Address_Type.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -1889,7 +1889,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\Sales System\House_Hold_Income.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\House_Hold_Income.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -2010,7 +2010,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\Sales System\Interest.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\Interest.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -2143,7 +2143,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\Sales System\Occupation.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\Occupation.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -2264,7 +2264,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\Sales System\Order_Details.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\Order_Details.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -2409,7 +2409,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\Sales System\Order_Header.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\Order_Header.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -2501,7 +2501,7 @@
         <group/>
       </field>
       <field>
-        <name>purchase_type</name>
+        <name>Purchase type</name>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -2578,7 +2578,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\ERP System\Package.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\ERP System\Package.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -2711,7 +2711,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\ERP System\Package_Type.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\ERP System\Package_Type.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -2808,7 +2808,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\Sales System\Permission.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\Permission.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -2905,7 +2905,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\Sales System\Phone_Number_Type.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\Phone_Number_Type.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -3014,7 +3014,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\ERP System\Product.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\ERP System\Product.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -3231,7 +3231,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\ERP System\Product_Category.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\ERP System\Product_Category.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -3328,7 +3328,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\ERP System\Product_Type.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\ERP System\Product_Type.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -3437,7 +3437,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\ERP System\Product_Status.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\ERP System\Product_Status.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -3534,7 +3534,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\Sales System\Region.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\Region.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -3643,7 +3643,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\Sales System\State.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\State.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -3800,7 +3800,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\Sales System\Store.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\Store.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -4077,7 +4077,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>D:\Assessment 1 Data\Sales System\Subscription.xlsx</name>
+      <name>D:\one\Deakin University\Course\T3\Enterprise Data Management\Assignment\MIS774-ICE-Entertainment-DW\dataset\Sales System\Subscription.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -4232,14 +4232,14 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_address_type</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
+    <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
     <partitioning_daily>N</partitioning_daily>
@@ -4250,6 +4250,18 @@
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
+      <field>
+        <column_name>address_type_code</column_name>
+        <stream_name>address_type_code</stream_name>
+      </field>
+      <field>
+        <column_name>address_type</column_name>
+        <stream_name>address_type</stream_name>
+      </field>
+      <field>
+        <column_name>description</column_name>
+        <stream_name>description</stream_name>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -4276,7 +4288,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_channel</table>
     <commit>1000</commit>
@@ -4320,7 +4332,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_currency</table>
     <commit>1000</commit>
@@ -4364,14 +4376,14 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_currency_rate</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
+    <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
     <partitioning_daily>N</partitioning_daily>
@@ -4382,6 +4394,26 @@
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
+      <field>
+        <column_name>effective_date</column_name>
+        <stream_name>effective_date</stream_name>
+      </field>
+      <field>
+        <column_name>currency_code</column_name>
+        <stream_name>currency_code</stream_name>
+      </field>
+      <field>
+        <column_name>currency_rate</column_name>
+        <stream_name>currency_rate</stream_name>
+      </field>
+      <field>
+        <column_name>created</column_name>
+        <stream_name>created</stream_name>
+      </field>
+      <field>
+        <column_name>last_updated</column_name>
+        <stream_name>last_updated</stream_name>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -4408,7 +4440,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_customer</table>
     <commit>1000</commit>
@@ -4452,7 +4484,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_customer_status</table>
     <commit>1000</commit>
@@ -4496,7 +4528,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_customer_type</table>
     <commit>1000</commit>
@@ -4540,14 +4572,14 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_division</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
+    <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
     <partitioning_daily>N</partitioning_daily>
@@ -4558,6 +4590,14 @@
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
+      <field>
+        <column_name>division_code</column_name>
+        <stream_name>division_code</stream_name>
+      </field>
+      <field>
+        <column_name>division_name</column_name>
+        <stream_name>division_name</stream_name>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -4584,7 +4624,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_email_address_type</table>
     <commit>1000</commit>
@@ -4628,7 +4668,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_house_hold_income</table>
     <commit>1000</commit>
@@ -4672,14 +4712,14 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_interest</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
+    <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
     <partitioning_daily>N</partitioning_daily>
@@ -4690,6 +4730,26 @@
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
+      <field>
+        <column_name>interest</column_name>
+        <stream_name>interest</stream_name>
+      </field>
+      <field>
+        <column_name>description</column_name>
+        <stream_name>description</stream_name>
+      </field>
+      <field>
+        <column_name>interest_group</column_name>
+        <stream_name>interest_group</stream_name>
+      </field>
+      <field>
+        <column_name>associated_product_type</column_name>
+        <stream_name>associated_product_type</stream_name>
+      </field>
+      <field>
+        <column_name>related_interest</column_name>
+        <stream_name>related_interest</stream_name>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -4716,7 +4776,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_occupation</table>
     <commit>1000</commit>
@@ -4760,7 +4820,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_order_details</table>
     <commit>1000</commit>
@@ -4804,14 +4864,14 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_order_header</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
+    <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
     <partitioning_daily>N</partitioning_daily>
@@ -4852,7 +4912,7 @@
       </field>
       <field>
         <column_name>purchase_type</column_name>
-        <stream_name>purchase_type</stream_name>
+        <stream_name>Purchase type</stream_name>
       </field>
     </fields>
     <attributes/>
@@ -4880,7 +4940,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_package</table>
     <commit>1000</commit>
@@ -4924,7 +4984,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_package_type</table>
     <commit>1000</commit>
@@ -4968,7 +5028,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_permission</table>
     <commit>1000</commit>
@@ -5012,7 +5072,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_phone_number_type</table>
     <commit>1000</commit>
@@ -5056,14 +5116,14 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_product</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
+    <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
     <partitioning_daily>N</partitioning_daily>
@@ -5074,6 +5134,54 @@
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
+      <field>
+        <column_name>product_code</column_name>
+        <stream_name>product_code</stream_name>
+      </field>
+      <field>
+        <column_name>name</column_name>
+        <stream_name>name</stream_name>
+      </field>
+      <field>
+        <column_name>description</column_name>
+        <stream_name>description</stream_name>
+      </field>
+      <field>
+        <column_name>title</column_name>
+        <stream_name>title</stream_name>
+      </field>
+      <field>
+        <column_name>artist_code</column_name>
+        <stream_name>artist_code</stream_name>
+      </field>
+      <field>
+        <column_name>product_type_code</column_name>
+        <stream_name>product_type_code</stream_name>
+      </field>
+      <field>
+        <column_name>format</column_name>
+        <stream_name>format</stream_name>
+      </field>
+      <field>
+        <column_name>unit_price</column_name>
+        <stream_name>unit_price</stream_name>
+      </field>
+      <field>
+        <column_name>unit_cost</column_name>
+        <stream_name>unit_cost</stream_name>
+      </field>
+      <field>
+        <column_name>status</column_name>
+        <stream_name>status</stream_name>
+      </field>
+      <field>
+        <column_name>created</column_name>
+        <stream_name>created</stream_name>
+      </field>
+      <field>
+        <column_name>last_updated</column_name>
+        <stream_name>last_updated</stream_name>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -5100,7 +5208,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_product_category</table>
     <commit>1000</commit>
@@ -5144,7 +5252,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_product_status</table>
     <commit>1000</commit>
@@ -5188,14 +5296,14 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_product_type</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
+    <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
     <partitioning_daily>N</partitioning_daily>
@@ -5206,6 +5314,18 @@
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
+      <field>
+        <column_name>product_type_code</column_name>
+        <stream_name>product_type_code</stream_name>
+      </field>
+      <field>
+        <column_name>product_type</column_name>
+        <stream_name>product_type</stream_name>
+      </field>
+      <field>
+        <column_name>product_category</column_name>
+        <stream_name>product_category</stream_name>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -5232,14 +5352,14 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_region</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
+    <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
     <partitioning_daily>N</partitioning_daily>
@@ -5250,6 +5370,18 @@
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
+      <field>
+        <column_name>region_code</column_name>
+        <stream_name>region_code</stream_name>
+      </field>
+      <field>
+        <column_name>region_name</column_name>
+        <stream_name>region_name</stream_name>
+      </field>
+      <field>
+        <column_name>division_code</column_name>
+        <stream_name>division_code</stream_name>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -5276,7 +5408,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_state</table>
     <commit>1000</commit>
@@ -5320,7 +5452,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_store</table>
     <commit>1000</commit>
@@ -5364,7 +5496,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>stg</schema>
     <table>stg_subscription</table>
     <commit>1000</commit>

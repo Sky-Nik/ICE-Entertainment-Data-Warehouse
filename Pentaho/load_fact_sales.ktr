@@ -452,7 +452,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <schema>dw</schema>
     <table>fact_sales</table>
     <commit>1000</commit>
@@ -489,6 +489,10 @@
       <field>
         <column_name>currency_key</column_name>
         <stream_name>currency_key</stream_name>
+      </field>
+      <field>
+        <column_name>market_key</column_name>
+        <stream_name>market_key</stream_name>
       </field>
       <field>
         <column_name>order_id</column_name>
@@ -552,66 +556,46 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>edm_ass1</connection>
+    <connection>ICE_Entertainment</connection>
     <sql>SELECT
-    -- surrogate keys from dimension tables acting as foreign keys
     dd.date_key,
     dc.customer_key,
     dp.product_key,
     ds.store_key,
     cur.currency_key,
-   
-    -- line item details
+    dm.market_key,
     od.order_id,
     od.line_no,
-
-    -- measures
     od.qty,
     od.price,
     od.unit_cost,
-
-    -- Exchange rate applied
-    cur.currency_rate                                       AS exchange_rate,
-
-    -- Calculated measures in USD
-    ROUND(od.qty * od.price     * cur.currency_rate, 2)    AS dollar_sales_usd,
-    ROUND(od.qty * od.unit_cost * cur.currency_rate, 2)    AS cost_usd,
-    ROUND(
-        (od.qty * od.price     * cur.currency_rate) -
-        (od.qty * od.unit_cost * cur.currency_rate), 2
-    )                                                       AS margin_usd
-    
--- Join order header
+    cur.currency_rate AS exchange_rate,
+    ROUND(od.qty * od.price * cur.currency_rate, 2)                                         AS dollar_sales_usd,
+    ROUND(od.qty * od.unit_cost * cur.currency_rate, 2)                                     AS cost_usd,
+    ROUND((od.qty * od.price * cur.currency_rate) -
+          (od.qty * od.unit_cost * cur.currency_rate), 2)                                   AS margin_usd
 FROM stg.stg_order_details od
 JOIN stg.stg_order_header oh
     ON od.order_id = oh.order_id
-
--- join to get order date 
 JOIN dw.dim_date dd
     ON dd.sql_date = STR_TO_DATE(oh.order_date, '%Y-%m-%d')
-
--- join to get customer details with current order
 JOIN dw.dim_customer dc
     ON dc.customer_number = oh.customer_number
     AND dc.is_current = 1
-
--- join to get product detail
 JOIN dw.dim_product dp
     ON dp.product_code = od.product_code
-
--- join to get store detail
 JOIN dw.dim_store ds
     ON ds.store_number = oh.store_number
-
--- most recent valid currency rate for the transaction date
+JOIN dw.dim_market dm
+    ON dm.market = ds.market
 JOIN dw.dim_currency cur
     ON cur.currency_code = oh.currency
     AND cur.effective_date = (
         SELECT MAX(cr2.effective_date)
         FROM dw.dim_currency cr2
         WHERE cr2.currency_code = oh.currency
-          AND cr2.effective_date &lt;= STR_TO_DATE(oh.order_date, '%Y-%m-%d')
-)</sql>
+        AND cr2.effective_date &lt;= STR_TO_DATE(oh.order_date, '%Y-%m-%d')
+    )</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -638,7 +622,7 @@ JOIN dw.dim_currency cur
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -661,7 +645,7 @@ JOIN dw.dim_currency cur
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -684,7 +668,7 @@ JOIN dw.dim_currency cur
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -707,7 +691,7 @@ JOIN dw.dim_currency cur
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -730,7 +714,7 @@ JOIN dw.dim_currency cur
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -753,7 +737,7 @@ JOIN dw.dim_currency cur
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -776,7 +760,7 @@ JOIN dw.dim_currency cur
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -799,7 +783,7 @@ JOIN dw.dim_currency cur
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -822,7 +806,7 @@ JOIN dw.dim_currency cur
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -845,7 +829,7 @@ JOIN dw.dim_currency cur
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -868,7 +852,7 @@ JOIN dw.dim_currency cur
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -891,7 +875,7 @@ JOIN dw.dim_currency cur
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -914,7 +898,7 @@ JOIN dw.dim_currency cur
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
@@ -937,7 +921,7 @@ JOIN dw.dim_currency cur
         <sort_descending>N</sort_descending>
         <output_padding>N</output_padding>
         <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_IN</date_format_locale>
+        <date_format_locale>en_AU</date_format_locale>
         <date_format_timezone>Australia/Sydney</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
