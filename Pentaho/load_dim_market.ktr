@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>load_dim_currency</name>
+    <name>load_dim_market</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -426,34 +426,24 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2026/04/09 19:18:22.874</created_date>
+    <created_date>2026/04/22 17:34:32.031</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2026/04/09 19:18:22.874</modified_date>
-    <key_for_session_key>H4sIAAAAAAAA/wMAAAAAAAAAAAA=</key_for_session_key>
+    <modified_date>2026/04/22 17:34:32.031</modified_date>
+    <key_for_session_key/>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
   <order>
     <hop>
-      <from>stg_currency_rate</from>
-      <to>Append streams</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>usd_base_rate</from>
-      <to>Append streams</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Append streams</from>
+      <from>Table input</from>
       <to>Table output</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Append streams</name>
-    <type>Append</type>
+    <name>Table input</name>
+    <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -462,8 +452,41 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <head_name>stg_currency_rate</head_name>
-    <tail_name>usd_base_rate</tail_name>
+    <connection>ICE_Entertainment</connection>
+    <sql>SELECT DISTINCT market
+FROM stg.stg_customer
+WHERE market IS NOT NULL</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>market</name>
+        <length>50</length>
+        <precision>-1</precision>
+        <origin>Table input</origin>
+        <comments>market</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_AU</date_format_locale>
+        <date_format_timezone>Australia/Sydney</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+    </row-meta>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -473,8 +496,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>384</xloc>
-      <yloc>160</yloc>
+      <xloc>256</xloc>
+      <yloc>208</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -491,7 +514,7 @@
     </partitioning>
     <connection>ICE_Entertainment</connection>
     <schema>dw</schema>
-    <table>dim_currency</table>
+    <table>dim_market</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
@@ -508,20 +531,8 @@
     <return_field/>
     <fields>
       <field>
-        <column_name>currency_code</column_name>
-        <stream_name>currency_code</stream_name>
-      </field>
-      <field>
-        <column_name>currency_name</column_name>
-        <stream_name>currency_name</stream_name>
-      </field>
-      <field>
-        <column_name>effective_date</column_name>
-        <stream_name>effective_date</stream_name>
-      </field>
-      <field>
-        <column_name>currency_rate</column_name>
-        <stream_name>currency_rate</stream_name>
+        <column_name>market</column_name>
+        <stream_name>market</stream_name>
       </field>
     </fields>
     <attributes/>
@@ -533,275 +544,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>528</xloc>
-      <yloc>160</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>stg_currency_rate</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>ICE_Entertainment</connection>
-    <sql>SELECT
-    cr.currency_code,
-    c.currency_name,
-    STR_TO_DATE(cr.effective_date, '%Y-%m-%d %H:%i:%s') AS effective_date,
-    cr.currency_rate 
-FROM stg.stg_currency_rate cr
-LEFT JOIN stg.stg_currency c
-    ON cr.currency_code = c.currency_code</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cached_row_meta_active>N</cached_row_meta_active>
-    <row-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>currency_code</name>
-        <length>3</length>
-        <precision>-1</precision>
-        <origin>stg_currency_rate</origin>
-        <comments>currency_code</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_AU</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>currency_name</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>stg_currency_rate</origin>
-        <comments>currency_name</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_AU</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Timestamp</type>
-        <storagetype>normal</storagetype>
-        <name>effective_date</name>
-        <length>0</length>
-        <precision>-1</precision>
-        <origin>stg_currency_rate</origin>
-        <comments>effective_date</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_AU</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Number</type>
-        <storagetype>normal</storagetype>
-        <name>currency_rate</name>
-        <length>10</length>
-        <precision>6</precision>
-        <origin>stg_currency_rate</origin>
-        <comments>currency_rate</comments>
-        <conversion_Mask>####0.0#########;-####0.0#########</conversion_Mask>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_AU</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-    </row-meta>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>200</xloc>
-      <yloc>100</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>usd_base_rate</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>ICE_Entertainment</connection>
-    <sql>SELECT DISTINCT
-    'USD' AS currency_code,
-    'United States, Dollars' AS currency_name,
-    STR_TO_DATE(cr.effective_date, '%Y-%m-%d %H:%i:%s') AS effective_date,
-    1.000000 AS currency_rate
-FROM stg.stg_currency_rate cr
-WHERE cr.currency_code = 'AUD'</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cached_row_meta_active>N</cached_row_meta_active>
-    <row-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>currency_code</name>
-        <length>3</length>
-        <precision>-1</precision>
-        <origin>usd_base_rate</origin>
-        <comments>currency_code</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_AU</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>currency_name</name>
-        <length>22</length>
-        <precision>-1</precision>
-        <origin>usd_base_rate</origin>
-        <comments>currency_name</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_AU</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Timestamp</type>
-        <storagetype>normal</storagetype>
-        <name>effective_date</name>
-        <length>0</length>
-        <precision>-1</precision>
-        <origin>usd_base_rate</origin>
-        <comments>effective_date</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_AU</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Number</type>
-        <storagetype>normal</storagetype>
-        <name>currency_rate</name>
-        <length>7</length>
-        <precision>6</precision>
-        <origin>usd_base_rate</origin>
-        <comments>currency_rate</comments>
-        <conversion_Mask>####0.0#########;-####0.0#########</conversion_Mask>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_AU</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-    </row-meta>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>192</xloc>
-      <yloc>192</yloc>
+      <xloc>464</xloc>
+      <yloc>208</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

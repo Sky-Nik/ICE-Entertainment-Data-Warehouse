@@ -94,7 +94,7 @@ SELECT
     ds.country,
     ds.state,
     ds.city,
-    ds.store_name,
+    ds.store,
     ds.store_type,
     d.year,
     d.month,
@@ -111,7 +111,7 @@ GROUP BY
     ds.country,
     ds.state,
     ds.city,
-    ds.store_name,
+    ds.store,
     ds.store_type,
     d.year,
     d.month,
@@ -127,7 +127,7 @@ ORDER BY
 -- fiscal year, fiscal quarter and fiscal period
 -- ============================================================
 
--- 4a. Daily (with day name for Sunday/holiday analysis)
+-- 4a. Daily
 SELECT
     d.sql_date,
     d.day_name,
@@ -223,7 +223,41 @@ JOIN dim_date d ON f.date_key = d.date_key
 GROUP BY d.fiscal_year, d.fiscal_period
 ORDER BY d.fiscal_year, d.fiscal_period;
 
-
+-- 4I. Profit on public holiday
+SELECT
+    d.date,
+    d.day_name,
+    SUM(f.qty) AS total_unit_sales,
+    SUM(f.dollar_sales_usd) AS total_dollar_sales_usd,
+    SUM(f.margin_usd) AS total_margin_usd
+FROM fact_sales f
+JOIN dim_date d
+    ON f.date_key = d.date_key
+WHERE d.us_holiday = 1
+GROUP BY
+    d.date,
+    d.day_name
+ORDER BY
+    d.date;
+    
+-- 4J. Profit on Sunday
+SELECT
+    d.date,
+    d.day_name,
+    SUM(f.qty) AS total_unit_sales,
+    SUM(f.dollar_sales_usd) AS total_dollar_sales_usd,
+    SUM(f.margin_usd) AS total_margin_usd
+FROM fact_sales f
+JOIN dim_date d
+    ON f.date_key = d.date_key
+WHERE d.day_name = 'Sunday'
+GROUP BY
+    d.date,
+    d.day_name
+ORDER BY
+    d.date;
+    
+    
 -- ============================================================
 -- QUERY 5: MARKET ANALYSIS (Business Question 5)
 -- Which market is the most profitable?
@@ -252,29 +286,3 @@ ORDER BY
     d.month,
     total_margin_usd DESC;
 
-
--- ============================================================
--- BONUS: SUBSCRIPTION ANALYSIS
--- Customer subscription behaviour for loyalty program design
--- ============================================================
-
-SELECT
-    dc.name                         AS customer_name,
-    dc.market,
-    dc.age_group,
-    dc.preferred_channel1,
-    ds.package_name,
-    ds.package_type,
-    ds.package_price,
-    ds.status                       AS subscription_status,
-    fs.subscription_duration_days,
-    fs.active_flag,
-    fs.cancelled_flag,
-    d.year,
-    d.month_name
-FROM fact_subscription fs
-JOIN dim_customer dc     ON fs.customer_key = dc.customer_key
-JOIN dim_subscription ds ON fs.subscription_key = ds.subscription_key
-JOIN dim_date d          ON fs.date_key = d.date_key
-ORDER BY
-    fs.subscription_duration_days DESC;

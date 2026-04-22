@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>load_dim_subscription</name>
+    <name>load_dim_store</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -426,9 +426,9 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2026/04/09 19:14:43.990</created_date>
+    <created_date>2026/04/09 18:57:28.109</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2026/04/09 19:14:43.990</modified_date>
+    <modified_date>2026/04/09 18:57:28.109</modified_date>
     <key_for_session_key>H4sIAAAAAAAA/wMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
@@ -436,7 +436,7 @@
   </notepads>
   <order>
     <hop>
-      <from>stg_subscription</from>
+      <from>stg_store</from>
       <to>Table output</to>
       <enabled>Y</enabled>
     </hop>
@@ -454,7 +454,7 @@
     </partitioning>
     <connection>ICE_Entertainment</connection>
     <schema>dw</schema>
-    <table>dim_subscription</table>
+    <table>dim_store</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
@@ -471,48 +471,76 @@
     <return_field/>
     <fields>
       <field>
-        <column_name>subscription_id</column_name>
-        <stream_name>subscription_id</stream_name>
+        <column_name>store_number</column_name>
+        <stream_name>store_number</stream_name>
       </field>
       <field>
-        <column_name>customer_id</column_name>
-        <stream_name>customer_id</stream_name>
+        <column_name>address1</column_name>
+        <stream_name>address1</stream_name>
       </field>
       <field>
-        <column_name>store_id</column_name>
-        <stream_name>store_id</stream_name>
+        <column_name>address2</column_name>
+        <stream_name>address2</stream_name>
       </field>
       <field>
-        <column_name>package_id</column_name>
-        <stream_name>package_id</stream_name>
+        <column_name>address3</column_name>
+        <stream_name>address3</stream_name>
       </field>
       <field>
-        <column_name>channel_id</column_name>
-        <stream_name>channel_id</stream_name>
+        <column_name>address4</column_name>
+        <stream_name>address4</stream_name>
       </field>
       <field>
-        <column_name>package_name</column_name>
-        <stream_name>package_name</stream_name>
+        <column_name>division</column_name>
+        <stream_name>division</stream_name>
       </field>
       <field>
-        <column_name>package_type</column_name>
-        <stream_name>package_type</stream_name>
+        <column_name>region</column_name>
+        <stream_name>region</stream_name>
       </field>
       <field>
-        <column_name>package_price</column_name>
-        <stream_name>package_price</stream_name>
+        <column_name>country</column_name>
+        <stream_name>country</stream_name>
       </field>
       <field>
-        <column_name>start_date</column_name>
-        <stream_name>start_date</stream_name>
+        <column_name>state</column_name>
+        <stream_name>state</stream_name>
       </field>
       <field>
-        <column_name>end_date</column_name>
-        <stream_name>end_date</stream_name>
+        <column_name>city</column_name>
+        <stream_name>city</stream_name>
       </field>
       <field>
-        <column_name>status</column_name>
-        <stream_name>status</stream_name>
+        <column_name>store</column_name>
+        <stream_name>store</stream_name>
+      </field>
+      <field>
+        <column_name>store_type</column_name>
+        <stream_name>store_type</stream_name>
+      </field>
+      <field>
+        <column_name>zipcode</column_name>
+        <stream_name>zipcode</stream_name>
+      </field>
+      <field>
+        <column_name>phone_number</column_name>
+        <stream_name>phone_number</stream_name>
+      </field>
+      <field>
+        <column_name>web_site</column_name>
+        <stream_name>web_site</stream_name>
+      </field>
+      <field>
+        <column_name>created</column_name>
+        <stream_name>created</stream_name>
+      </field>
+      <field>
+        <column_name>last_updated</column_name>
+        <stream_name>last_updated</stream_name>
+      </field>
+      <field>
+        <column_name>market</column_name>
+        <stream_name>market</stream_name>
       </field>
     </fields>
     <attributes/>
@@ -524,16 +552,16 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>400</xloc>
-      <yloc>100</yloc>
+      <xloc>368</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>stg_subscription</name>
+    <name>stg_store</name>
     <type>TableInput</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -541,23 +569,34 @@
       <schema_name/>
     </partitioning>
     <connection>ICE_Entertainment</connection>
-    <sql> SELECT
-    s.subscription_id,
-    s.customer_id,
-    s.store_id,
-    s.package_id,
-    s.channel_id,
-    p.name                                               AS package_name,
-    pt.package_type                                      AS package_type,
-    p.package_price,
-    STR_TO_DATE(CAST(s.start_date AS CHAR), '%Y%m%d')   AS start_date,
-    STR_TO_DATE(CAST(s.end_date   AS CHAR), '%Y%m%d')   AS end_date,
-    s.status
-FROM stg.stg_subscription s
-JOIN stg.stg_package p
-    ON s.package_id = p.package_id
-JOIN stg.stg_package_type pt
-   ON p.package_type = pt.package_type_code;</sql>
+    <sql>SELECT
+    s.store_number,
+    s.address1,
+    s.address2,
+    s.address3,
+    s.address4,
+    d.division_name AS division,
+    s.region,
+    s.country,
+    ss.state_name AS state,
+    s.city,
+    s.store_name AS store,
+    s.store_type,
+    s.zipcode,
+    s.phone_number,
+    s.web_site,
+    s.created,
+    s.last_updated,
+    CASE
+        WHEN s.country = 'AU' AND s.state = 'VIC' THEN 'Victoria'
+        WHEN s.country = 'AU' AND s.state != 'VIC' THEN 'Rest of Australia'
+        ELSE 'International'
+    END AS market
+FROM stg.stg_store s
+LEFT JOIN stg.stg_division d
+    ON s.division = d.division_code
+LEFT JOIN stg.stg_state ss
+    ON s.state = ss.state_code</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -568,103 +607,11 @@ JOIN stg.stg_package_type pt
       <value-meta>
         <type>Integer</type>
         <storagetype>normal</storagetype>
-        <name>subscription_id</name>
+        <name>store_number</name>
         <length>9</length>
         <precision>0</precision>
-        <origin>stg_subscription</origin>
-        <comments>subscription_id</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_AU</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>customer_id</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>stg_subscription</origin>
-        <comments>customer_id</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_AU</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>store_id</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>stg_subscription</origin>
-        <comments>store_id</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_AU</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>package_id</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>stg_subscription</origin>
-        <comments>package_id</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_AU</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>channel_id</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>stg_subscription</origin>
-        <comments>channel_id</comments>
+        <origin>stg_store</origin>
+        <comments>store_number</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -683,11 +630,103 @@ JOIN stg.stg_package_type pt
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>package_name</name>
+        <name>address1</name>
+        <length>255</length>
+        <precision>-1</precision>
+        <origin>stg_store</origin>
+        <comments>address1</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_AU</date_format_locale>
+        <date_format_timezone>Australia/Sydney</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>address2</name>
+        <length>255</length>
+        <precision>-1</precision>
+        <origin>stg_store</origin>
+        <comments>address2</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_AU</date_format_locale>
+        <date_format_timezone>Australia/Sydney</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>address3</name>
+        <length>255</length>
+        <precision>-1</precision>
+        <origin>stg_store</origin>
+        <comments>address3</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_AU</date_format_locale>
+        <date_format_timezone>Australia/Sydney</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>address4</name>
+        <length>255</length>
+        <precision>-1</precision>
+        <origin>stg_store</origin>
+        <comments>address4</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_AU</date_format_locale>
+        <date_format_timezone>Australia/Sydney</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>division</name>
         <length>100</length>
         <precision>-1</precision>
-        <origin>stg_subscription</origin>
-        <comments>package_name</comments>
+        <origin>stg_store</origin>
+        <comments>division</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -706,80 +745,57 @@ JOIN stg.stg_package_type pt
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>package_type</name>
+        <name>region</name>
+        <length>50</length>
+        <precision>-1</precision>
+        <origin>stg_store</origin>
+        <comments>region</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_AU</date_format_locale>
+        <date_format_timezone>Australia/Sydney</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>country</name>
+        <length>2</length>
+        <precision>-1</precision>
+        <origin>stg_store</origin>
+        <comments>country</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_AU</date_format_locale>
+        <date_format_timezone>Australia/Sydney</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>state</name>
         <length>100</length>
         <precision>-1</precision>
-        <origin>stg_subscription</origin>
-        <comments>package_type</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_AU</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Number</type>
-        <storagetype>normal</storagetype>
-        <name>package_price</name>
-        <length>10</length>
-        <precision>2</precision>
-        <origin>stg_subscription</origin>
-        <comments>package_price</comments>
-        <conversion_Mask>####0.0#########;-####0.0#########</conversion_Mask>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_AU</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Date</type>
-        <storagetype>normal</storagetype>
-        <name>start_date</name>
-        <length>-1</length>
-        <precision>-1</precision>
-        <origin>stg_subscription</origin>
-        <comments>start_date</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>en_AU</date_format_locale>
-        <date_format_timezone>Australia/Sydney</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Date</type>
-        <storagetype>normal</storagetype>
-        <name>end_date</name>
-        <length>-1</length>
-        <precision>-1</precision>
-        <origin>stg_subscription</origin>
-        <comments>end_date</comments>
+        <origin>stg_store</origin>
+        <comments>state</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -798,11 +814,195 @@ JOIN stg.stg_package_type pt
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>status</name>
+        <name>city</name>
+        <length>100</length>
+        <precision>-1</precision>
+        <origin>stg_store</origin>
+        <comments>city</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_AU</date_format_locale>
+        <date_format_timezone>Australia/Sydney</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>store</name>
+        <length>100</length>
+        <precision>-1</precision>
+        <origin>stg_store</origin>
+        <comments>store</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_AU</date_format_locale>
+        <date_format_timezone>Australia/Sydney</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>store_type</name>
+        <length>50</length>
+        <precision>-1</precision>
+        <origin>stg_store</origin>
+        <comments>store_type</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_AU</date_format_locale>
+        <date_format_timezone>Australia/Sydney</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>zipcode</name>
         <length>20</length>
         <precision>-1</precision>
-        <origin>stg_subscription</origin>
-        <comments>status</comments>
+        <origin>stg_store</origin>
+        <comments>zipcode</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_AU</date_format_locale>
+        <date_format_timezone>Australia/Sydney</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>phone_number</name>
+        <length>20</length>
+        <precision>-1</precision>
+        <origin>stg_store</origin>
+        <comments>phone_number</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_AU</date_format_locale>
+        <date_format_timezone>Australia/Sydney</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>web_site</name>
+        <length>255</length>
+        <precision>-1</precision>
+        <origin>stg_store</origin>
+        <comments>web_site</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_AU</date_format_locale>
+        <date_format_timezone>Australia/Sydney</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>created</name>
+        <length>20</length>
+        <precision>-1</precision>
+        <origin>stg_store</origin>
+        <comments>created</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_AU</date_format_locale>
+        <date_format_timezone>Australia/Sydney</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>last_updated</name>
+        <length>20</length>
+        <precision>-1</precision>
+        <origin>stg_store</origin>
+        <comments>last_updated</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_AU</date_format_locale>
+        <date_format_timezone>Australia/Sydney</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>market</name>
+        <length>17</length>
+        <precision>-1</precision>
+        <origin>stg_store</origin>
+        <comments>market</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -828,8 +1028,8 @@ JOIN stg.stg_package_type pt
       </output>
     </remotesteps>
     <GUI>
-      <xloc>200</xloc>
-      <yloc>100</yloc>
+      <xloc>160</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
